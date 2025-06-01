@@ -495,7 +495,75 @@ FN(ui_handle_get_value) {
 	ui_handle_t *h = (ui_handle_t *)p;
 	return JS_NewFloat64(ctx, h->value);
 }
+//New Get and set
 
+FN(ui_handle_set_check) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    bool b = JS_ToBool(ctx, argv[1]);
+    h->checked = b;
+    return JS_UNDEFINED;
+}
+
+FN(ui_handle_get_check) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    return JS_NewBool(ctx, h->checked);
+}
+
+FN(ui_handle_set_radio) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    int32_t selected;
+    JS_ToInt32(ctx, &selected, argv[1]);
+    h->selected = selected;
+    return JS_UNDEFINED;
+}
+
+FN(ui_handle_get_radio) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    return JS_NewInt32(ctx, h->selected);
+}
+
+FN(ui_handle_set_combo) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    int32_t selected;
+    JS_ToInt32(ctx, &selected, argv[1]);
+    h->selected = selected;
+    return JS_UNDEFINED;
+}
+
+FN(ui_handle_get_combo) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    return JS_NewInt32(ctx, h->selected);
+}
+
+FN(ui_handle_set_row) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    double d;
+    JS_ToFloat64(ctx, &d, argv[1]);
+    h->value = d;
+    return JS_UNDEFINED;
+}
+
+FN(ui_handle_get_row) {
+    int64_t p;
+    JS_ToInt64(ctx, &p, argv[0]);
+    ui_handle_t *h = (ui_handle_t *)p;
+    return JS_NewFloat64(ctx, h->value);
+}
+//End of New Functions
 FN(ui_panel) {
 	int64_t p;
 	JS_ToInt64(ctx, &p, argv[0]);
@@ -817,6 +885,16 @@ void plugin_api_init() {
 	BIND(ui_handle_create, 0);
 	BIND(ui_handle_set_value, 2);
 	BIND(ui_handle_get_value, 1);
+	//New Binds
+	BIND(ui_handle_set_check, 2);
+    BIND(ui_handle_get_check, 1);
+    BIND(ui_handle_set_radio, 2);
+    BIND(ui_handle_get_radio, 1);
+    BIND(ui_handle_set_combo, 2);
+    BIND(ui_handle_get_combo, 1);
+    BIND(ui_handle_set_row, 2);
+    BIND(ui_handle_get_row, 1);
+    //End of new Binds
 	BIND(ui_panel, 2);
 	BIND(ui_button, 1);
 	BIND(ui_text, 1);
