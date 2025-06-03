@@ -502,7 +502,7 @@ FN(ui_handle_set_check) {
     JS_ToInt64(ctx, &p, argv[0]);
     ui_handle_t *h = (ui_handle_t *)p;
     bool b = JS_ToBool(ctx, argv[1]);
-    h->value = b;
+    h->selected = b;
     return JS_UNDEFINED;
 }
 
@@ -510,7 +510,7 @@ FN(ui_handle_get_check) {
     int64_t p;
     JS_ToInt64(ctx, &p, argv[0]);
     ui_handle_t *h = (ui_handle_t *)p;
-    return JS_NewBool(ctx, h->value);
+    return JS_NewBool(ctx, h->selected);
 }
 
 FN(ui_handle_set_radio) {
@@ -519,7 +519,7 @@ FN(ui_handle_set_radio) {
     ui_handle_t *h = (ui_handle_t *)p;
     int32_t selected;
     JS_ToInt32(ctx, &selected, argv[1]);
-    h->value = selected;
+    h->position = selected;
     return JS_UNDEFINED;
 }
 
@@ -527,7 +527,7 @@ FN(ui_handle_get_radio) {
     int64_t p;
     JS_ToInt64(ctx, &p, argv[0]);
     ui_handle_t *h = (ui_handle_t *)p;
-    return JS_NewInt32(ctx, h->value);
+    return JS_NewInt32(ctx, h->position);
 }
 
 FN(ui_handle_set_combo) {
@@ -536,7 +536,7 @@ FN(ui_handle_set_combo) {
     ui_handle_t *h = (ui_handle_t *)p;
     int32_t selected;
     JS_ToInt32(ctx, &selected, argv[1]);
-    h->value = selected;
+    h->position = selected;
     return JS_UNDEFINED;
 }
 
@@ -544,7 +544,7 @@ FN(ui_handle_get_combo) {
     int64_t p;
     JS_ToInt64(ctx, &p, argv[0]);
     ui_handle_t *h = (ui_handle_t *)p;
-    return JS_NewInt32(ctx, h->value);
+    return JS_NewInt32(ctx, h->position);
 }
 
 FN(ui_handle_set_row) {
